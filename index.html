@@ -689,12 +689,14 @@ console.log("Supabase connected");
 <p id="status"></p>
 
 <script>
-document.getElementById('heroUpload').addEventListener('click', function() {
-  document.getElementById('fileInput').click();
-});
+window.addEventListener('load', function() {
+  document.getElementById('heroUpload').addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+  });
 
-document.getElementById('fileInput').addEventListener('change', function() {
-  uploadPDF();
+  document.getElementById('fileInput').addEventListener('change', function() {
+    uploadPDF();
+  });
 });
 
 async function uploadPDF() {
