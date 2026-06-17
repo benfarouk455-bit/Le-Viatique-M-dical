@@ -685,5 +685,30 @@ const supabase = window.supabase.createClient(
 
 console.log("Supabase connected");
 </script>  
+<!-- كود Supabase الموجود عندك -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const supabaseUrl = "...";
+      const supabaseKey = "...";
+      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    </script>
+
+    <!-- ✅ أضف هذا هنا -->
+    <input type="file" id="fileInput" accept=".pdf" />
+    <button onclick="uploadPDF()">رفع الملخص</button>
+    <p id="status"></p>
+
+    <script>
+    async function uploadPDF() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) { document.getElementById('status').innerText = 'اختر ملف!'; return; }
+      const { data, error } = await supabase.storage.from('pdfs').upload(`${Date.now()}_${file.name}`, file);
+      if (error) { document.getElementById('status').innerText = 'خطأ: ' + error.message; return; }
+      document.getElementById('status').innerText = '✅ تم الرفع!';
+    }
+    </script>
+
+</body>
+</html>
   <body>
 </html>
