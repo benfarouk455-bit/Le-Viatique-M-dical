@@ -690,6 +690,32 @@ console.log("Supabase connected");
 
 <script>
 window.addEventListener('load', function() {
+
+  let isLogin = true;
+
+  document.getElementById('authSwitch').addEventListener('click', function() {
+    isLogin = !isLogin;
+    document.getElementById('authTitle').innerText = isLogin ? 'أهلاً بعودتك' : 'إنشاء حساب جديد';
+    document.getElementById('authSwitchText').innerText = isLogin ? 'ليس لديك حساب؟' : 'لديك حساب؟';
+    this.innerText = isLogin ? 'سجل الدخول' : 'أنشئ حساباً';
+  });
+
+  document.getElementById('authForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('authEmail').value;
+    const password = document.getElementById('authPassword').value;
+    if (isLogin) {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) { alert('خطأ: ' + error.message); return; }
+      alert('✅ تم تسجيل الدخول!');
+    } else {
+      const { error } = await supabase.auth.signUp({ email, password });
+      if (error) { alert('خطأ: ' + error.message); return; }
+      alert('✅ تم إنشاء الحساب!');
+    }
+    document.getElementById('authModal').classList.add('hidden');
+  });
+
   document.getElementById('heroUpload').addEventListener('click', function() {
     document.getElementById('fileInput').click();
   });
@@ -697,6 +723,7 @@ window.addEventListener('load', function() {
   document.getElementById('fileInput').addEventListener('change', function() {
     uploadPDF();
   });
+
 });
 
 async function uploadPDF() {
