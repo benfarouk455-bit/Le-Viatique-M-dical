@@ -738,7 +738,7 @@ init();
 <script>
 const supabaseUrl = "https://uhlhnxpscfmrvlolsivk.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVobGhueHBzY2ZtcnZsb2xzaXZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3MDE3MTUsImV4cCI6MjA5NzI3NzcxNX0._lJt8a-_Iq_RLZLUtREYDAUy8SlG_1_DX8xikSI9n-k";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+const sb = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 document.getElementById('heroUpload').addEventListener('click', function() {
   document.getElementById('fileInput').click();
@@ -748,7 +748,7 @@ document.getElementById('fileInput').addEventListener('change', async function()
   const file = this.files[0];
   if (!file) return;
   document.getElementById('status').innerText = 'جاري الرفع...';
-  const { data, error } = await supabase.storage
+  const { data, error } = await sb.storage
     .from('pdfs')
     .upload(`${Date.now()}_${file.name}`, file);
   if (error) {
