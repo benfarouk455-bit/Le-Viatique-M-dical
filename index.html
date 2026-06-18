@@ -636,7 +636,7 @@ const images = $('#upImages').files;
 let imageUrls = [];
   for (let i = 0; i < images.length; i++) {
   const img = images[i];
-  const fileName = ${Date.now()}_${img.name};
+  const fileName = $`{Date.now()}_${img.name}`;
 
   const { error } = await sb.storage
     .from('images')
